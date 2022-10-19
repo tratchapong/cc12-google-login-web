@@ -1,8 +1,9 @@
+import MainRouter from "./route/MainRouter";
 
 function App() {
   return (
     <div className="App">
-
+      <MainRouter />
     </div>
   );
 }
