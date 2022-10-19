@@ -2,7 +2,7 @@ import MainRouter from "./route/MainRouter";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App container">
       <MainRouter />
     </div>
   );
