@@ -5,6 +5,7 @@ import {
   getAccessToken,
   removeAccessToken
 } from '../utils/localStorage';
+import { useNavigate } from "react-router-dom";
 
 const URL = "http://localhost:8008";
 const putHeaders = (token) => ({
@@ -16,6 +17,7 @@ const putHeaders = (token) => ({
 const AuthContext = createContext();
 
 function AuthContextProvider({ children }) {
+  const navigate = useNavigate()
   const [user, setUser] = useState(null);
 
   useEffect(()=>{
@@ -24,21 +26,26 @@ function AuthContextProvider({ children }) {
       if(token) { 
         const me = await axios.get(`${URL}/auth/me`,putHeaders(token))
         setUser(me.data.user)
-      }
+      } 
     }
     fetchMe()
   }, [])
 
+  const getMe = async (token) => {
+    const me = await axios.get(`${URL}/auth/me`,putHeaders(token))
+    setUser(me.data.user)
+  }
+
   const register = async (input) => {
     const res = await axios.post(`${URL}/auth/register`, input);
     addAccessToken(res.data.token)
+    getMe(res.data.token)
   };
 
   const login = async (input) => {
     const res = await axios.post(`${URL}/auth/login`,input)
     addAccessToken(res.data.token)
-    const me = await axios.get(`${URL}/auth/me`,putHeaders(getAccessToken()))
-    setUser(me.data.user)
+    getMe(res.data.token)
   }
 
   const logout = () => {

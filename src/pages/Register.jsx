@@ -1,6 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
+import { useAuth } from "../contexts/AuthContext";
 
 function Register() {
+  const {register} = useAuth()
+  const [input,setInput] = useState({
+    email: '',
+    password: '',
+    confirmPassword: '',
+    phone: ''
+  })
+
+  const hdlChangeInput = e => {
+    setInput({...input, [e.target.name] : e.target.value})
+  }
+
+  const hdlSubmit = async e => {
+    try {
+      e.preventDefault()
+      await register(input)
+    }catch (err) {
+      alert(err.response.data.message)
+    }
+  }
+
   return (
     <div className="container mt-2">
       <div className="row">
@@ -8,7 +30,7 @@ function Register() {
           <h2 className="text-center text-dark ">Register Form</h2>
           {/* <div className="text-center mb-5 text-dark">Made with bootstrap</div> */}
           <div className="card my-3">
-            <form className="card-body cardbody-color p-lg-4">
+            <form className="card-body cardbody-color p-lg-4" onSubmit={hdlSubmit}>
               <div className="text-center">
                 <img
                   src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295398__340.png"
@@ -22,7 +44,9 @@ function Register() {
                 <input
                   type="text"
                   className="form-control"
-                  id="Email"
+                  name="email"
+                  value={input.email}
+                  onChange={hdlChangeInput}
                   placeholder="Email Address"
                 />
               </div>
@@ -30,7 +54,9 @@ function Register() {
                 <input
                   type="password"
                   className="form-control"
-                  id="password"
+                  name="password"
+                  value={input.password}
+                  onChange={hdlChangeInput}
                   placeholder="Password"
                 />
               </div>
@@ -38,7 +64,9 @@ function Register() {
                 <input
                   type="password"
                   className="form-control"
-                  id="confirmPassword"
+                  name="confirmPassword"
+                  value={input.confirmPassword}
+                  onChange={hdlChangeInput}
                   placeholder="Confirm Password"
                 />
               </div>
@@ -46,7 +74,9 @@ function Register() {
                 <input
                   type="text"
                   className="form-control"
-                  id="phone"
+                  name="phone"
+                  value={input.phone}
+                  onChange={hdlChangeInput}
                   placeholder="Pnone Number"
                 />
               </div>

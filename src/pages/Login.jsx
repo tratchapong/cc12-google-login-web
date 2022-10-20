@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 import {useAuth} from '../contexts/AuthContext'
 
 function Login() {
-  const {user, login} = useAuth()
+  const {login} = useAuth()
   const [input, setInput] = useState({
     email: '',
     password: ''
@@ -15,8 +15,12 @@ function Login() {
     setInput({...input, [e.target.name] : e.target.value})
   }
   const hdlSubmit = async (e) => {
-    e.preventDefault()
-    await login(input)
+    try {
+      e.preventDefault()
+      await login(input)
+    } catch (err) {
+      alert(err.response.data.message)
+    }
   }
 
   return (
