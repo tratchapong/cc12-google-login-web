@@ -48,13 +48,19 @@ function AuthContextProvider({ children }) {
     getMe(res.data.token)
   }
 
+  const glogin = async (credential) => {
+    const res = await axios.post(`${URL}/auth/glogin`,{credential})
+    addAccessToken(res.data.Token)
+    getMe(res.data.token)
+  }
+
   const logout = () => {
     setUser(null)
     removeAccessToken()
   }
 
   return (
-    <AuthContext.Provider value={{ user, setUser,register,login,logout }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ user, setUser,register,login,logout,glogin }}>{children}</AuthContext.Provider>
   );
 }
 

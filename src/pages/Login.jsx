@@ -1,16 +1,34 @@
 // resource :
 // https://codepen.io/rajashekhar90/pen/XWNaapG
-import React,{useState} from "react";
+import React,{useState, useEffect} from "react";
 import {Link} from 'react-router-dom'
 import {useAuth} from '../contexts/AuthContext'
 
 function Login() {
-  const {login} = useAuth()
+  const {login, glogin} = useAuth()
   const [input, setInput] = useState({
     email: '',
     password: ''
   })
 
+  const hdlCallbackResponse = (response) => {
+    glogin(response.credential)
+  }
+
+  useEffect(()=> {
+    /* global google */
+
+    google?.accounts.id.initialize({
+      client_id: "119443015095-dlq2d66p6lva5bhqlu9ma847pq640mml.apps.googleusercontent.com",
+      callback: hdlCallbackResponse
+    })
+
+    google?.accounts.id.renderButton(
+      document.getElementById("signInDiv"),
+      { theme: "outline", size: "large"}
+    )
+
+  },[])
   const hdlChangeInput = e => {
     setInput({...input, [e.target.name] : e.target.value})
   }
@@ -63,10 +81,14 @@ function Login() {
               <div className="text-center">
                 <button
                   type="submit"
-                  className="btn btn-primary px-5 mb-5 w-100"
+                  className="btn btn-primary px-5 mb-3 w-100"
                 >
                   Login
                 </button>
+              </div>
+            </form>
+              <div className="d-flex justify-content-center align-items-center">
+                <div id="signInDiv"></div>
               </div>
               <div
                 className="form-text text-center mb-5 text-dark"
@@ -74,7 +96,6 @@ function Login() {
                 Not Registered?{" "}
                 <Link to='/register' className="text-dark fw-bold"> Create an Account</Link>
               </div>
-            </form>
           </div>
         </div>
       </div>
