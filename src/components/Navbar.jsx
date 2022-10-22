@@ -11,8 +11,8 @@ function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg bg-light">
       <div className="container-fluid">
-        {user && <span className="navbar-brand">Welcome, {user.email}</span>}
-        <span className="navbar-brand">Logo</span>
+        {/* {user && <span className="navbar-brand">Welcome, {user.email}</span>} */}
+        <span className="navbar-brand ">Logo</span>
         <button
           className="navbar-toggler"
           type="button"

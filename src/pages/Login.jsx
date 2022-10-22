@@ -87,7 +87,7 @@ function Login() {
                 </button>
               </div>
             </form>
-              <div className="d-flex justify-content-center align-items-center">
+              <div className="d-flex justify-content-center align-items-center mb-3">
                 <div id="signInDiv"></div>
               </div>
               <div
