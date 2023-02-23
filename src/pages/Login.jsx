@@ -12,6 +12,7 @@ function Login() {
   })
 
   const hdlCallbackResponse = (response) => {
+    console.log(response)
     glogin(response.credential)
   }
 
@@ -19,7 +20,7 @@ function Login() {
     /* global google */
 
     google?.accounts.id.initialize({
-      client_id: "119443015095-dlq2d66p6lva5bhqlu9ma847pq640mml.apps.googleusercontent.com",
+      client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID, 
       callback: hdlCallbackResponse
     })
 
@@ -29,6 +30,7 @@ function Login() {
     )
 
   },[])
+  
   const hdlChangeInput = e => {
     setInput({...input, [e.target.name] : e.target.value})
   }

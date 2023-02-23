@@ -7,5 +7,5 @@ export const addAccessToken = token =>
 
 export const removeAccessToken = () => { 
   localStorage.removeItem(ACCESS_TOKEN);
-  window.location.assign('/')
+  window.location.replace('/')
 }

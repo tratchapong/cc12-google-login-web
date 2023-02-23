@@ -5,7 +5,6 @@ import {
   getAccessToken,
   removeAccessToken
 } from '../utils/localStorage';
-import { useNavigate } from "react-router-dom";
 
 const URL = "http://localhost:8008";
 const putHeaders = (token) => ({
@@ -17,7 +16,6 @@ const putHeaders = (token) => ({
 const AuthContext = createContext();
 
 function AuthContextProvider({ children }) {
-  const navigate = useNavigate()
   const [user, setUser] = useState(null);
 
   useEffect(()=>{
@@ -50,13 +48,13 @@ function AuthContextProvider({ children }) {
 
   const glogin = async (credential) => {
     const res = await axios.post(`${URL}/auth/glogin`,{credential})
-    addAccessToken(res.data.Token)
+    addAccessToken(res.data.token)
     getMe(res.data.token)
   }
 
   const logout = () => {
-    setUser(null)
     removeAccessToken()
+    setUser(null)
   }
 
   return (
