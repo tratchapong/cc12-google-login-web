@@ -20,7 +20,7 @@ function Login() {
     /* global google */
 
     window.google?.accounts.id.initialize({
-      client_id: "***your client-id***",
+      client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
       callback: hdlCallbackResponse
     })
 
