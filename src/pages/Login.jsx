@@ -19,12 +19,12 @@ function Login() {
   useEffect(()=> {
     /* global google */
 
-    google?.accounts.id.initialize({
-      client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID, 
+    window.google?.accounts.id.initialize({
+      client_id: "***your client-id***",
       callback: hdlCallbackResponse
     })
 
-    google?.accounts.id.renderButton(
+    window.google?.accounts.id.renderButton(
       document.getElementById("signInDiv"),
       { theme: "outline", size: "large"}
     )
